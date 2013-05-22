@@ -51,7 +51,15 @@ class graphite::web::package {
 
   # action
   package { $graphite::params::package_web:
-    ensure => $package_ensure,
+    ensure   => $package_ensure,
+    provider => $graphite::params::pkg_provider,
   }
 
+  if $graphite::params::pkg_provider == 'pip' {
+    file { '/usr/lib/python2.7/dist-packages/graphite_web-0.9.10-py2.7.egg-info' :
+      ensure => link,
+      target => '/opt/graphite/webapp/graphite_web-0.9.10-py2.7.egg-info',
+      require => Package [ $graphite::params::package_web ],
+    }
+  }
 }

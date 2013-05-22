@@ -52,6 +52,13 @@ class graphite::carbon::package {
   # action
   package { $graphite::params::package_carbon:
     ensure   => $package_ensure,
+    provider => $graphite::params::pkg_provider,
   }
-
+  if $graphite::params::pkg_provider == 'pip' {
+    file { '/usr/lib/python2.7/dist-packages/carbon-0.9.10-py2.7.egg-info' :
+      ensure => link,
+      target => '/opt/graphite/lib/carbon-0.9.10-py2.7.egg-info',
+      require => Package [ $graphite::params::package_carbon ],
+    }
+  }
 }

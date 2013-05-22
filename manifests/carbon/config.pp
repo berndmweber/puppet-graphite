@@ -26,6 +26,11 @@ class graphite::carbon::config {
 
   #### Configuration
 
+  user { 'carbon' :
+    home       => '/opt/graphite',
+    managehome => false,
+  }
+
   file { '/etc/carbon':
     ensure => directory,
     owner  => 'root',
@@ -39,7 +44,7 @@ class graphite::carbon::config {
     order   => 01
   }
 
-  file_concat { '/etc/carbon/storage-schemas.conf':
+  file_concat { '/opt/graphite/conf/storage-schemas.conf':
     tag     => "carbon_cache_storage_config_${::fqdn}",
     owner   => 'root',
     group   => 'root',
@@ -47,7 +52,7 @@ class graphite::carbon::config {
     require => File['/etc/carbon']
   }
 
-  file { '/etc/carbon/carbon.conf':
+  file { '/opt/graphite/conf/carbon.conf':
     ensure  => present,
     source  => $graphite::carbon::config_file,
     owner   => 'root',

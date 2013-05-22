@@ -22,7 +22,7 @@
 #
 # * Richard Pijnenburg <mailto:richard@ispavailability.com>
 #
-class graphite::package {
+class graphite::package inherits graphite::params {
 
   #### Package management
 
@@ -50,8 +50,11 @@ class graphite::package {
   }
 
   # action
-  package { $graphite::params::package:
-    ensure => $package_ensure,
+  if $graphite::params::package_provider == 'npm' {
+    require ( 'nodejs' )
+    package { $graphite::params::package:
+      ensure => $package_ensure,
+      provider => $graphite::params::package_provider,
+    }
   }
-
 }

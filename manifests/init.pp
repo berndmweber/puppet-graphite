@@ -113,6 +113,8 @@ class graphite(
 
   #### Manage actions
 
+  class { 'graphite::package' : }
+
   class { 'graphite::carbon':
     cache_enable      => $carbon_cache_enable,
     relay_enable      => $carbon_relay_enable,

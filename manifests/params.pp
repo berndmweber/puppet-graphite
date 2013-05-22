@@ -42,6 +42,12 @@ class graphite::params {
 
   #### Internal module values
 
+  $pkg_provider = 'pip'
+
+  $package_provider = 'npm'
+
+  $package = 'graphite'
+
   # packages
   case $::operatingsystem {
     'CentOS', 'Fedora', 'Scientific': {
@@ -52,9 +58,9 @@ class graphite::params {
     }
     'Debian', 'Ubuntu': {
       # main application
-      $package_carbon  = [ 'python-carbon' ]
-      $package_whisper = [ 'python-whisper' ]
-      $package_web     = [ 'python-graphite' ]
+      $package_carbon  = [ 'carbon' ]
+      $package_whisper = [ 'whisper' ]
+      $package_web     = [ 'graphite-web' ]
     }
     default: {
       fail("\"${module_name}\" provides no package default value

@@ -51,7 +51,8 @@ class graphite::whisper::package {
 
   # action
   package { $graphite::params::package_whisper:
-    ensure => $package_ensure,
+    ensure   => $package_ensure,
+    provider => $graphite::params::pkg_provider,
   }
 
 }
